@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sshLite — Terminal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.3.0/css/xterm.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="terminal-header">
+    <span>sshLite terminal</span>
+    <a href="/" onclick="sessionStorage.removeItem('sshlite_token')">Logout</a>
+  </header>
+  <div id="terminal"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.3.0/lib/xterm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.8.0/lib/addon-fit.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/terminal.js"></script>
+</body>
+</html>
