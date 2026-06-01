@@ -7,13 +7,14 @@ import { login } from "./auth/auth.js";
 import { setupWebSocket } from "./websocket/socket.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-console.log(__dirname);
-console.log(__dirname, "..", "public");
-const publicDir = path.join(__dirname, "..", "public");
+const rootDir = path.join(__dirname, "..");
+const publicDir = path.join(rootDir, "public");
 
 const app = express();
 app.use(express.json());
 app.use(express.static(publicDir));
+app.use("/vendor/xterm", express.static(path.join(rootDir, "node_modules/@xterm/xterm")));
+app.use("/vendor/addon-fit", express.static(path.join(rootDir, "node_modules/@xterm/addon-fit")));
 
 const port = process.env.PORT || 3000;
 const httpServer = http.createServer(app);
