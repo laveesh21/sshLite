@@ -8,13 +8,11 @@ import { setupWebSocket } from "./websocket/socket.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.join(__dirname, "..");
-const publicDir = path.join(rootDir, "public");
+const clientDist = path.join(rootDir, "client", "dist");
+const isProd = process.env.NODE_ENV === "production";
 
 const app = express();
 app.use(express.json());
-app.use(express.static(publicDir));
-app.use("/vendor/xterm", express.static(path.join(rootDir, "node_modules/@xterm/xterm")));
-app.use("/vendor/addon-fit", express.static(path.join(rootDir, "node_modules/@xterm/addon-fit")));
 
 const port = process.env.PORT || 3000;
 const httpServer = http.createServer(app);
@@ -40,6 +38,18 @@ app.post("/api/login", (req, res) => {
   res.json({ success: true, token: result.token });
 });
 
+if (isProd) {
+  app.use(express.static(clientDist));
+  app.get(/^(?!\/api).*/, (_req, res) => {
+    res.sendFile(path.join(clientDist, "index.html"));
+  });
+}
+
 httpServer.listen(port, () => {
-  console.log(`sshLite running on http://localhost:${port}`);
+  console.log(`sshLite API running on http://localhost:${port}`);
+  if (isProd) {
+    console.log(`sshLite UI served from ${clientDist}`);
+  } else {
+    console.log("Dev UI: http://localhost:5173");
+  }
 });

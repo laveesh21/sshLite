@@ -11,6 +11,10 @@ body {
   min-height: 100vh;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 .container {
   max-width: 400px;
   margin: 10vh auto;
@@ -84,13 +88,21 @@ button:disabled {
   border-bottom: 1px solid #30363d;
 }
 
-.terminal-header a {
+.logout-link {
+  width: auto;
+  padding: 0;
+  background: none;
   color: #58a6ff;
-  text-decoration: none;
+  font-weight: 400;
   font-size: 0.85rem;
 }
 
-#terminal {
+.logout-link:hover:not(:disabled) {
+  background: none;
+  text-decoration: underline;
+}
+
+.terminal-container {
   height: calc(100vh - 42px);
   padding: 4px;
 }
